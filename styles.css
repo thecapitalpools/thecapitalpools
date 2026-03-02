@@ -225,12 +225,39 @@ a {
     align-items: center;
 }
 
+.logo-img {
+    max-height: 50px;
+    width: auto;
+    transition: var(--transition-smooth);
+    display: block;
+}
+
+.navbar.scrolled .logo-img {
+    filter: invert(0);
+    /* Adjust if needed depending on source image vs background */
+}
+
+/* Original logo-text fallback just in case */
 .logo-text {
     font-family: var(--font-heading);
     font-weight: 700;
     font-size: 1.5rem;
     color: var(--color-white);
     transition: var(--transition-smooth);
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--color-white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.navbar.scrolled .mobile-menu-btn {
+    color: var(--color-green-dark);
 }
 
 .nav-links {
@@ -720,9 +747,46 @@ a {
         column-count: 2;
     }
 
+    .mobile-menu-btn {
+        display: block;
+        position: absolute;
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
     .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 250px;
+        height: 100vh;
+        background: var(--color-white);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: 0.4s ease-in-out;
+        z-index: 1000;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        margin: 0;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a {
+        color: var(--color-green-dark) !important;
+        margin: 1rem 0;
+        font-size: 1.2rem;
+    }
+
+    .nav-links a::after {
         display: none;
-        /* simple mobile hide for now, could be a hamburger Menu */
+    }
+
+    .navbar .btn-outline {
+        display: none;
     }
 
     .hero-title {

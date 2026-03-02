@@ -14,9 +14,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    /* --- Mobile Menu Toggle --- */
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close menu when clicking a link
+        const links = navLinks.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                if (mobileMenuBtn.querySelector('i')) {
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+    }
+
     /* --- Intersection Observer for Scroll Animations --- */
     const animatedElements = document.querySelectorAll('.fade-in, .fade-in-up, .slide-up');
-    
+
     const observerOptions = {
         root: null,
         rootMargin: '0px',
@@ -78,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (track) {
         renderTestimonials();
-        
+
         // Handle window resize
         window.addEventListener('resize', updateCarousel);
 
@@ -118,19 +149,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitReviewBtn = document.getElementById("submitReview");
 
     if (openBtn && modal) {
-        openBtn.onclick = function() {
+        openBtn.onclick = function () {
             modal.style.display = "block";
         }
-        closeBtn.onclick = function() {
+        closeBtn.onclick = function () {
             modal.style.display = "none";
         }
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
 
-        submitReviewBtn.onclick = function() {
+        submitReviewBtn.onclick = function () {
             const name = document.getElementById("reviewName").value;
             const text = document.getElementById("reviewText").value;
             if (name && text) {
@@ -146,26 +177,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* --- WhatsApp Contact Form Integration --- */
     const whatsappForm = document.getElementById('whatsappForm');
-    
+
     if (whatsappForm) {
-        whatsappForm.addEventListener('submit', function(e) {
+        whatsappForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             // Get values
             const name = document.getElementById('name').value.trim();
             const phone = document.getElementById('phone').value.trim();
             const email = document.getElementById('email').value.trim();
             const notes = document.getElementById('notes').value.trim();
-            
+
             // The Company WhatsApp Number
             const whatsappNumber = "918589030606";
-            
+
             // Format Message
             const message = `Hello The Capital Pools,\n\nI would like to inquire regarding a pool project.\n\n*Name:* ${name}\n*Contact:* ${phone}\n*Email:* ${email || 'N/A'}\n*Additional Notes:* ${notes}\n\nPlease get back to me.`;
-            
+
             // Encode URI Component
             const encodedMessage = encodeURIComponent(message);
-            
+
             // Redirect to WhatsApp
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
             window.open(whatsappUrl, '_blank');
