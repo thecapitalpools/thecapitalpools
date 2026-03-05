@@ -356,9 +356,21 @@ a {
    2. Services Grid
    ========================================================================== */
 .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 2rem;
+}
+
+.services-grid>a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    /* 3 columns max, minus gap logic */
+    flex: 1 1 calc(33.333% - 2rem);
+    max-width: 400px;
+    min-width: 300px;
+    height: auto;
 }
 
 .service-card {
@@ -368,6 +380,13 @@ a {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     transition: var(--transition-smooth);
     border-bottom: 4px solid transparent;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card p {
+    flex-grow: 1;
 }
 
 .service-icon {
@@ -377,13 +396,47 @@ a {
     transition: var(--transition-smooth);
 }
 
-.service-card:hover {
+/* Cycle 1: Aqua */
+.services-grid>a:nth-child(3n+1) .service-card:hover {
     border-bottom-color: var(--color-aqua-blue);
+    background: linear-gradient(145deg, var(--color-white) 40%, rgba(10, 142, 160, 0.08) 100%);
+}
+
+.services-grid>a:nth-child(3n+1) .service-card:active {
+    background: linear-gradient(145deg, var(--color-white) 0%, rgba(10, 142, 160, 0.15) 100%);
+    border-bottom-color: var(--color-aqua-blue);
+}
+
+/* Cycle 2: Green */
+.services-grid>a:nth-child(3n+2) .service-card:hover {
+    border-bottom-color: var(--color-green-light);
+    background: linear-gradient(145deg, var(--color-white) 40%, rgba(46, 92, 80, 0.08) 100%);
+}
+
+.services-grid>a:nth-child(3n+2) .service-card:active {
+    background: linear-gradient(145deg, var(--color-white) 0%, rgba(46, 92, 80, 0.15) 100%);
+    border-bottom-color: var(--color-green-light);
+}
+
+/* Cycle 3: Earth/Brown */
+.services-grid>a:nth-child(3n+3) .service-card:hover {
+    border-bottom-color: var(--color-brown-light);
+    background: linear-gradient(145deg, var(--color-white) 40%, rgba(163, 123, 84, 0.08) 100%);
+}
+
+.services-grid>a:nth-child(3n+3) .service-card:active {
+    background: linear-gradient(145deg, var(--color-white) 0%, rgba(163, 123, 84, 0.15) 100%);
+    border-bottom-color: var(--color-brown-light);
 }
 
 .float-hover:hover {
     transform: translateY(-10px);
     box-shadow: var(--shadow-float);
+}
+
+.float-hover:active {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .float-hover:hover .service-icon {
